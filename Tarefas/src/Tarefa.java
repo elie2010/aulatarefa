@@ -1,5 +1,5 @@
 public class Tarefa {
-	
+
     private String titulo;
     private String descricao;
     private String dataVencimento;
@@ -49,4 +49,5 @@ public class Tarefa {
         return "titulo=" + titulo + ", descricao=" + descricao + ", dataVencimento=" + dataVencimento
                 + ", status=" + status;
     }
+
 }
