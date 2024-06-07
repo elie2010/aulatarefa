@@ -12,6 +12,12 @@ public class ListaTarefas {
         listaTarefas.add(tarefa);
     }
 
+    public static void verificarlistaVazia() throws Exception {
+        if (listaTarefas.isEmpty()) {
+            throw new Exception("\nNão há nenhuma, tarfea cadastrada...");
+        }
+    }
+
     public static Tarefa buscarTafera(String titulo) throws Exception {
         for (Tarefa tempTarefa : listaTarefas) {
             if (tempTarefa.getTitulo().contains(titulo)) {
@@ -21,26 +27,29 @@ public class ListaTarefas {
         throw new Exception("\nTarefa não encontrada..");
     }
 
-    public static void apagarTarefa(Tarefa tarefa) {
+    public static void apagarTarefab(Tarefa tarefa) {
         listaTarefas.remove(tarefa);
     }
 
-    public static void editarTarefa(String titulo, Tarefa tarefa) throws Exception {
+    public static Tarefa editarTarefas(ArrayList<Tarefa> listaTarefas) throws Exception {
+
         boolean tarefaEncontarada = false;
-        // bucar tarefa antes
-        for (int i = 0; i < listaTarefas.size(); i++) {
-            Tarefa tempTarefa = listaTarefas.get(i);
-            if (tempTarefa.getTitulo().equals(tempTarefa)) {
-                // atualizar tarfea encontrada
-                listaTarefas.set(i, tempTarefa);
-                tarefaEncontarada = false;
-                break;
-            }
+        // buscar tarefa
+        String titulo = Console.lerString("Infome nome da tarefa pra editar");
+        Tarefa tarefaParaEditar = buscarTafera(titulo);
+        if (tarefaParaEditar != null) {
+            // atualizando a tarefa
+            tarefaParaEditar.setTitulo(Console.lerString("\nInfome novo nome"));
+            tarefaParaEditar.setDescricao(Console.lerString("\nInforme a nova descrição"));
+            tarefaParaEditar.setDataVencimento(Console.lerString("\nInfome nova data"));
+            tarefaParaEditar.setStatus(Console.lerString("\nStatus da tarefa"));
+            tarefaEncontarada = true;
         }
-        // execeçao se tarefa nao for encontrada
         if (!tarefaEncontarada) {
-            throw new Exception("\nTarefa com titulo " + titulo + " não encontrada...");
+            throw new Exception("\nTarefa com titulo " + titulo + " não encontrada");
         }
+        PersistenciaTarefas.salvarTarefaNoArquivo(listaTarefas);
+        return tarefaParaEditar;
     }
 
 }

@@ -5,6 +5,9 @@ public class Tarefa {
     private String dataVencimento;
     private String status;
 
+    public Tarefa() {
+    }
+
     public Tarefa(String titulo, String descricao, String dataVencimento, String status) {
         this.titulo = titulo;
         this.descricao = descricao;
@@ -46,8 +49,17 @@ public class Tarefa {
 
     @Override
     public String toString() {
-        return "titulo=" + titulo + ", descricao=" + descricao + ", dataVencimento=" + dataVencimento
-                + ", status=" + status;
+        return "titulo:" + titulo + "\ndescricao:" + descricao + "\ndataVencimento:" + dataVencimento
+                + "\nstatus:" + status;
+    }
+
+    public void fromString(String linha) {
+        String[] partes = linha.split(", ");
+        titulo = partes[0].split(":")[1];
+        descricao = partes[1].split(":")[1];
+        dataVencimento = partes[2].split(":")[1];
+        status = partes[3].split(":")[1];
+
     }
 
 }
